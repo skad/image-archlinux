@@ -54,7 +54,7 @@ RUN mkdir -p /tmp/shunit2 \
 # xnbd-client
 RUN mkdir /tmp/build-xnbd \
     && cd /tmp/build-xnbd \
-    && wget https://bitbucket.org/hirofuchi/xnbd/downloads/xnbd-0.3.0.tar.bz2 -O xnbd.tar.bz2 \
+    && curl -L https://bitbucket.org/hirofuchi/xnbd/downloads/xnbd-0.3.0.tar.bz2 -o xnbd.tar.bz2 \
     && tar -xf xnbd.tar.bz2 \
     && cd xnbd-* \
     && pacman -Sy --noconfirm gcc automake pkg-config make \
@@ -87,7 +87,7 @@ RUN pacman --noconfirm -Suy
 
 
 # Patch rootfs
-RUN wget -qO - http://j.mp/scw-skeleton | FLAVORS=common,docker-based bash -e
+RUN curl -Lkq http://j.mp/scw-skeleton | FLAVORS=common,docker-based bash -e
 ADD ./patches/etc/ /etc/
 ADD ./patches/usr/ /usr/
 
