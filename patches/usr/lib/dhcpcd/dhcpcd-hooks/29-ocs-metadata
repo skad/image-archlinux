@@ -1,6 +1,6 @@
-# Fetch OCS metadata
+# Fetch Scaleway metadata
 
-fetch_ocs_metadata()
+fetch_scw_metadata()
 {
   metadata_host_name=$(/usr/local/bin/oc-metadata --cached HOSTNAME)
   if [ "x$metadata_host_name" != "x" ]; then
@@ -14,5 +14,5 @@ fetch_ocs_metadata()
 }
 
 if $if_up; then
-    fetch_ocs_metadata
+    fetch_scw_metadata
 fi

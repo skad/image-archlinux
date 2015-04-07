@@ -1,10 +1,10 @@
-## -*- docker-image-name: "armbuild/ocs-distrib-archlinux:latest" -*-
+## -*- docker-image-name: "armbuild/scw-distrib-archlinux:latest" -*-
 FROM armbuild/archlinux-disk:2014-12-02
-MAINTAINER Online Labs <opensource@ocs.online.net> (@online_en)
+MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
 
 
 # Environment
-ENV OCS_BASE_IMAGE armbuild/ocs-archlinux:2014-12-02
+ENV SCW_BASE_IMAGE armbuild/scw-archlinux:2014-12-02
 
 
 # Install packages
@@ -87,12 +87,12 @@ RUN pacman --noconfirm -Suy
 
 
 # Patch rootfs
-RUN wget -qO - http://j.mp/ocs-scripts | bash
+RUN wget -qO - http://j.mp/scw-skeleton | FLAVORS=common,docker-based bash -e
 ADD ./patches/etc/ /etc/
 ADD ./patches/usr/ /usr/
 
 
-# Enable Online-Labs services
+# Enable Scaleway services
 RUN systemctl enable oc-ssh-keys \
  && systemctl enable oc-add-extra-volumes \
  && systemctl enable oc-sync-kernel-modules
