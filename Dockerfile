@@ -87,7 +87,7 @@ RUN pacman --noconfirm -Suy
 
 
 # Patch rootfs
-RUN curl -Lkq http://j.mp/scw-skeleton | FLAVORS=common,docker-based bash -e
+RUN curl -Lkq http://j.mp/scw-skeleton | FLAVORS=common,docker-based,systemd bash -e
 ADD ./patches/etc/ /etc/
 ADD ./patches/usr/ /usr/
 
