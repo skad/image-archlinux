@@ -27,7 +27,6 @@ RUN pacman -Sy --noconfirm \
     mg \
     nano \
     nbd \
-    networkmanager \
     ntp \
     openbsd-netcat \
     openssh \
@@ -74,11 +73,8 @@ RUN sed -e s/^\#en_US.UTF-8/en_US.UTF-8/ -i /etc/locale.gen \
 
 # Systemd
 RUN systemctl disable getty@tty1.service \
- && systemctl disable systemd-networkd.service \
- && systemctl enable NetworkManager-wait-online.service \
  && systemctl enable serial-getty@ttyS0.service \
  && systemctl enable sshd.service \
- && systemctl enable NetworkManager \
  && systemctl enable ntpdate
 
 
