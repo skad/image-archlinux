@@ -7,6 +7,10 @@ MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
 ENV SCW_BASE_IMAGE armbuild/scw-archlinux:2014-12-02
 
 
+# Force openssl upgrade first (bad symbol issue)
+RUN pacman -Sy --noconfirm --force openssl
+
+
 # Install packages
 RUN pacman -Sy --noconfirm \
     bash-completion \
@@ -50,36 +54,9 @@ RUN mkdir -p /tmp/shunit2 \
  && rm -rf /tmp/shunit2
 
 
-# xnbd-client
-RUN mkdir /tmp/build-xnbd \
-    && cd /tmp/build-xnbd \
-    && curl -L https://bitbucket.org/hirofuchi/xnbd/downloads/xnbd-0.3.0.tar.bz2 -o xnbd.tar.bz2 \
-    && tar -xf xnbd.tar.bz2 \
-    && cd xnbd-* \
-    && pacman -Sy --noconfirm gcc automake pkg-config make \
-    && cd /tmp/build-xnbd/xnbd-* \
-    && ./configure --prefix=/usr/local \
-    && make -j4 \
-    && make install \
-    && pacman -R --noconfirm gcc automake pkg-config make \
-    && cd / \
-    && rm -rf /tmp/build-xnbd /tmp/xnbd.tar.bz2
-
-
 # Locales
 RUN sed -e s/^\#en_US.UTF-8/en_US.UTF-8/ -i /etc/locale.gen \
  && locale-gen
-
-
-# Systemd
-RUN systemctl disable getty@tty1.service \
- && systemctl enable serial-getty@ttyS0.service \
- && systemctl enable sshd.service \
- && systemctl enable ntpdate
-
-
-# packages upgrade
-RUN pacman --noconfirm -Suy
 
 
 # Patch rootfs
@@ -88,10 +65,22 @@ ADD ./patches/etc/ /etc/
 ADD ./patches/usr/ /usr/
 
 
-# Enable Scaleway services
-RUN systemctl enable oc-ssh-keys \
- && systemctl enable oc-add-extra-volumes \
- && systemctl enable oc-sync-kernel-modules
+# Systemd
+RUN systemctl enable \
+        oc-fetch-ssh-keys \
+	oc-sync-kernel-modules \
+	oc-generate-ssh-keys \
+	oc-add-extra-volumes \
+	oc-gen-machine-id.service \
+	ntpdate.service \
+ 	sshd.service \
+	serial-getty@ttyS0.service \
+  && systemctl mask \
+	getty@tty1.service
+
+
+# packages upgrade
+RUN pacman --noconfirm -Suy
 
 
 # Remove root password
