@@ -44,16 +44,6 @@ RUN pacman -Sy --noconfirm \
     wget
 
 
-# shunit2
-RUN mkdir -p /tmp/shunit2 \
- && chown nobody /tmp/shunit2 \
- && cd /tmp/shunit2 \
- && wget https://aur.archlinux.org/packages/sh/shunit2/PKGBUILD \
- && sudo -u nobody makepkg --nocheck ./PKGBUILD \
- && pacman -U --noconfirm shunit2-*-any.pkg.tar.xz \
- && rm -rf /tmp/shunit2
-
-
 # Locales
 RUN sed -e s/^\#en_US.UTF-8/en_US.UTF-8/ -i /etc/locale.gen \
  && locale-gen
