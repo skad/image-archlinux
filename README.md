@@ -7,7 +7,7 @@ Scripts to build the official Archlinux image on Scaleway
 
 This image is built using [Image Tools](https://github.com/scaleway/image-tools) and is based on the official [Ubuntu](https://github.com/scaleway/image-ubuntu) image.
 
-<img src="http://upload.wikimedia.org/wikipedia/commons/5/59/Archlogo.png" width="300px" />
+![](http://archlinuxarm.org/sites/default/files/wikilogo_0_0.png)
 
 ---
 
