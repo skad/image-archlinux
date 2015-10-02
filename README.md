@@ -1,5 +1,7 @@
-Archlinux image on Scaleway [![Build Status](https://travis-ci.org/scaleway/image-archlinux.svg?branch=master)](https://travis-ci.org/scaleway/image-archlinux)
-===========================
+# Archlinux image on Scaleway
+
+[![Build Status](https://travis-ci.org/scaleway/image-archlinux.svg?branch=master)](https://travis-ci.org/scaleway/image-archlinux)
+[![](https://badge.imagelayers.io/scaleway/archlinux:latest.svg)](https://imagelayers.io/?images=scaleway/archlinux:latest 'Get your own badge on imagelayers.io')
 
 **Warning: this image is not yet working**
 
@@ -19,8 +21,7 @@ We use the Docker's building system and convert it at the end to a disk image th
 
 ---
 
-Install
--------
+## Install
 
 Build and write the image to /dev/nbd1 (see [documentation](https://www.scaleway.com/docs/create_an_image_with_docker))
 
@@ -30,8 +31,7 @@ Full list of commands available at: [scaleway/image-tools](https://github.com/sc
 
 ---
 
-links
------
+## Links
 
 - [Community: Add Archlinux ARM image](https://community.cloud.online.net/t/need-feedback-add-arch-linux-arm-image/243?u=manfred)
 - [Community: New linux distributions (Debian, CoreOS, CentOS, Fedora, Arch Linux, ...)](https://community.cloud.online.net/t/official-new-linux-distributions-debian-coreos-centos-fedora-arch-linux/229?u=manfred)
