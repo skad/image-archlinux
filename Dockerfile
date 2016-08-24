@@ -53,19 +53,21 @@ RUN sed -e s/^\#en_US.UTF-8/en_US.UTF-8/ -i /etc/locale.gen \
 RUN curl -Lkq http://j.mp/scw-skeleton | FLAVORS=common,docker-based,systemd bash -e
 ADD ./patches/etc/ /etc/
 ADD ./patches/usr/ /usr/
+RUN chmod 755 /usr /etc /usr/local/bin
+RUN chmod 750 /root
 
 
 # Systemd
 RUN systemctl enable \
-	scw-fetch-ssh-keys \
-	scw-sync-kernel-modules \
-	scw-generate-ssh-keys \
-	scw-gen-machine-id.service \
-	ntpdate.service \
-	sshd.service \
-	serial-getty@ttyS0.service \
+       	scw-fetch-ssh-keys \
+       	scw-sync-kernel-modules \
+       	scw-generate-ssh-keys \
+       	scw-gen-machine-id.service \
+       	ntpdate.service \
+       	sshd.service \
+       	serial-getty@ttyS0.service \
   && systemctl mask \
-	getty@tty1.service
+       	getty@tty1.service
 
 
 # packages upgrade
