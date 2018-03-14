@@ -17,6 +17,7 @@ RUN export FLASH_KERNEL_SKIP=1; \
     pacman -S --noconfirm \
     which \
     openssh \
+    systemd \
     linux \
     grub
 
