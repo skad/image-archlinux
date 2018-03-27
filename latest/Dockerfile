@@ -15,14 +15,11 @@ COPY ./overlay/etc/mkinitcpio.conf /etc/mkinitcpio.conf
 RUN export FLASH_KERNEL_SKIP=1; \
     pacman -Syu --noconfirm && \
     pacman -S --noconfirm \
-    which \
+    base \
+    coreutils \
     openssh \
     systemd \
-    linux \
     grub
-
-# grub-efi-$(dpkg --print-architecture | sed 's/armhf/arm/')
-
 
 # Patch rootfs
 # - Tweaks rootfs so it matches Scaleway infrastructure
@@ -36,13 +33,26 @@ RUN passwd -d root
 # Configure locales
 RUN locale-gen en_US.UTF-8
 
-# Default target
-RUN systemctl set-default multi-user
-
-
 # Configure Systemd
-# systemd utmp service is named systemd-update-utmp.service in Arch Linux
+RUN systemctl set-default multi-user
 RUN systemctl preset --preset-mode=full $(cat /etc/systemd/system-preset/scw*.preset | cut -d' ' -f2 | tr '\n' ' ')
+
+# TODO Remove the following lines, it was added because the `systemctl preset` doesn't
+# seems to work and so our units aren't activated :(
+RUN systemctl enable scw-relink-resolv-conf \
+  && systemctl enable scw-set-hostname \
+  && systemctl enable scw-generate-root-passwd \
+  && systemctl enable scw-signal-booted \
+  && systemctl enable scw-sync-kernel-modules \
+  && systemctl enable scw-fetch-ssh-keys \
+  && systemctl enable systemd-networkd \
+  && systemctl enable systemd-resolved \
+  && systemctl enable sshd
+
+# make /sbin/init a relative symlink for initrd boot
+RUN rm -f /sbin/init /bin/init \
+ && ln -sf ../lib/systemd/systemd /sbin/init \
+ && ln -sf ../lib/systemd/systemd /bin/init
 
 # Clean rootfs from image-builder
 # remove ssh host keys so they are regenerated on first boot

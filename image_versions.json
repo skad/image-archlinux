@@ -1,9 +1,0 @@
-{
-    "latest": {
-        "directory": "latest",
-        "architectures": [
-            "x86_64"
-        ],
-        "marketplace-id": "79445873-44c3-4a73-af74-155bd43a8fb1"
-    }
-}

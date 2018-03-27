@@ -1,0 +1,11 @@
+{
+    "images": {
+        "latest": {
+            "directory": "latest",
+            "architectures": [
+                "x86_64"
+            ],
+            "marketplace-id": ""
+        }
+    }
+}
