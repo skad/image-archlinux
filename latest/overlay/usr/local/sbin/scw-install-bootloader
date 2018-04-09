@@ -1,0 +1,5 @@
+#!/bin/bash
+
+grub-install --target=$(uname -m)-efi --bootloader-id=grub --removable \
+    --recheck --efi-dir=/boot/efi
+grub-mkconfig -o /boot/grub/grub.cfg
