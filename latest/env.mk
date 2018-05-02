@@ -1,0 +1,9 @@
+IMAGE_NAME = archlinux
+IMAGE_VERSION = latest
+IMAGE_VERSION_ALIASES = latest
+IMAGE_TITLE = Arch Linux
+IMAGE_DESCRIPTION = Arch Linux (latest)
+IMAGE_SOURCE_URL = https://github.com/scaleway/image-archlinux
+IMAGE_VENDOR_URL = https://www.archlinux.org/
+IMAGE_BOOTSCRIPT = mainline 4.15
+IMAGE_BASE_FLAVORS = common docker-based systemd feature-motd

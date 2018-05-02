@@ -1,0 +1,11 @@
+[Unit]
+Description=Generate network configuration on first boot
+ConditionFileNotEmpty=!/etc/resolv.conf
+Before=systemd-networkd.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/ln -sf /lib/systemd/resolv.conf /etc/resolv.conf
+
+[Install]
+WantedBy=systemd-networkd.service

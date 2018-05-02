@@ -1,0 +1,4 @@
+enable scw-relink-resolv-conf
+enable systemd-networkd
+enable systemd-resolved
+enable sshd
